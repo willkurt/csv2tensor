@@ -23,6 +23,7 @@ dependencies = {
 build = {
     type = "builtin",
     modules = {
+       ['init'] = 'init.lua',
        ['csv2tensor'] = 'csv2tensor.lua' 
     }
 }
