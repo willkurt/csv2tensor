@@ -1,5 +1,5 @@
-require 'csvigo'
 require 'torch'
+require 'csvigo'
 
 local csv2tensor = {}
 
