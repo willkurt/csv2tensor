@@ -2,7 +2,7 @@ package = "csv2tensor"
 version = "0.1-0"
 
 source = {
-    url = "git@github.com:willkurt/csv2tensor.git",
+    url = "git://github.com/willkurt/csv2tensor.git",
     tag = "v0.1"
 }
 
