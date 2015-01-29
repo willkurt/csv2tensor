@@ -6,7 +6,7 @@ A simple utility to transform a CSV file into a [Torch7](http://torch.ch) Tensor
 You can use luarocks to install *csv2tensor* 
 
 <code>
->>luarocks install csv2tensor
+\>\>luarocks install csv2tensor
 </code>
 
 basic usage is to simply load the csv file into a torch.Tensor. Since the initial order of the columns in the CSV file is not guaranteed the *load* function also returns a list of column names in the orderthey appear in the tensor
