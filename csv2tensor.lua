@@ -46,12 +46,20 @@ local function include_cols(csv_data,keep)
    return col_names, ncols
 end
 
+--function used to performany necessary tweaking to options
+local function opts_preprocess(opts)
+   if(opts.exclude and opts.include) then
+      print("Warning: both 'exclude' and 'include' specified. Using 'exclude' only")
+      opts.include = nil
+   end
+   if(opts.exclude and type(opts.exclude) == 'string') then opts.exclude = {opts.exclude} end
+   if(opts.include and type(opts.include) == 'string') then opts.include = {opts.include} end
+   return opts
+end
 
 function csv2tensor.load (path,opts)
    print("loading data from csv")
-   if(opts and opts.exclude and opts.include) then
-      print("Warning: both 'exclude' and 'include' specified. Using 'exclude' only")
-   end
+   if(opts) then opts = opts_preprocess(opts) end
    local csv_data  = csvigo.load{path=path}
    local col_names, ncols
    if opts and opts.exclude then

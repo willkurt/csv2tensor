@@ -1,4 +1,4 @@
-csv2tensor = require 'csv2tensor'
+csv2tensor = require '../csv2tensor'
 
 require 'csvigo'
 
@@ -27,4 +27,17 @@ function test_values(path)
 end
 
 test_values("simple.csv")
+print("passed basic test of loading csv")
+
+function test_string_arg_include(path)
+   local tensor_data, col_names = csv2tensor.load(path,{include={'col_a'}})
+   --this one just uses a string rather than a list, used to cause error
+   local tensor_data, col_names = csv2tensor.load(path,{include='col_a'})
+   local tensor_data, col_names = csv2tensor.load(path,{exclude={'col_a'}})
+   --this one just uses a string rather than a list, used to cause error
+--   local tensor_data, col_names = csv2tensor.load(path,{exclude='col_a'})
+end
+test_string_arg_include("simple.csv")
+print("single arg in exclude/include passed")
+
 print("tests passed")
