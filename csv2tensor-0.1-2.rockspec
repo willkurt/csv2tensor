@@ -1,9 +1,9 @@
 package = "csv2tensor"
-version = "0.1-1"
+version = "0.1-2"
 
 source = {
     url = "git://github.com/willkurt/csv2tensor.git",
-    tag = "v0.1-1"
+    tag = "v0.1-2"
 }
 
 description = {
@@ -23,7 +23,6 @@ dependencies = {
 build = {
     type = "builtin",
     modules = {
-       ['init'] = 'init.lua',
        ['csv2tensor'] = 'csv2tensor.lua' 
     }
 }
