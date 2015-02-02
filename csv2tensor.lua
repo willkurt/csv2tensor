@@ -76,6 +76,9 @@ function csv2tensor.load (path,opts)
       next_col =  torch.Tensor(csv_data[col_name])
       tensor_data[{{},i}] = next_col
    end
+   if ((#tensor_data)[2] == 1) then 
+      tensor_data = tensor_data[{{},1}]
+   end
    return tensor_data, col_names
 end
 

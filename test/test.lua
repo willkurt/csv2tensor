@@ -40,4 +40,12 @@ end
 test_string_arg_include("simple.csv")
 print("single arg in exclude/include passed")
 
+
+function test_single_column_vector(path)
+   local tensor_data, col_names = csv2tensor.load(path,{include={'col_a'}})
+   assert(#(col_names) == 1,"failed on colnames")
+   assert(#(#tensor_data) == 1,"Nx1 returned")
+end
+test_single_column_vector("simple.csv")
+print("single column as vector passed")
 print("tests passed")
