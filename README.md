@@ -9,7 +9,7 @@ You can use luarocks to install *csv2tensor*
 \>\>luarocks install csv2tensor
 </code>
 
-basic usage is to simply load the csv file into a torch.Tensor. Since the initial order of the columns in the CSV file is not guaranteed the *load* function also returns a list of column names in the orderthey appear in the tensor
+basic usage is to simply load the csv file into a torch.Tensor. A list a column names is returned as a second value. Columns are ordered alphabetically (even if this is not the case in the file) *unless include parameter is passed*. If the include option is passed then the columns will be in the order they appear in that argument.
 
 <code>
 csv2tensor = require 'csv2tensor'

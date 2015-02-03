@@ -48,4 +48,40 @@ function test_single_column_vector(path)
 end
 test_single_column_vector("simple.csv")
 print("single column as vector passed")
+
+function test_include_order(path)
+   local keep = {'col_a','col_b'}
+   local _, col_names = csv2tensor.load(path,
+                                        {include=keep})
+   for i,k in ipairs(keep) do
+      assert(col_names[i] == k,"include order wrong")
+   end
+   local keep = {'col_b','col_c','col_a'}
+   local _, col_names = csv2tensor.load(path,
+                                        {include=keep})
+   for i,k in ipairs(keep) do
+      assert(col_names[i] == k,"include order wrong")
+   end
+end
+test_include_order("simple.csv")
+print("passed include order")
+
+function test_general_column_order(path)
+   local _, col_names = csv2tensor.load(path)
+   for i = 1,(#col_names-1) do
+      assert(col_names[i] < col_names[i+1], "columns in incorrect order")
+   end
+end
+
+test_general_column_order("simple.csv")
+print("passed general column order")
+
+function test_exclude_column_order(path)
+   local _, col_names = csv2tensor.load(path,{exclude='col_a'})
+   for i = 1,(#col_names-1) do
+      assert(col_names[i] < col_names[i+1], "columns in incorrect order")
+   end
+end
+test_exclude_column_order("simple.csv")
+print("passed exclude column order")
 print("tests passed")

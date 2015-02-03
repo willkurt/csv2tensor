@@ -10,16 +10,17 @@ local function all_cols(csv_data)
       ncols = ncols + 1
       col_names[ncols] = k
    end
+   table.sort(col_names)
    return col_names, ncols
 end
 
 local function _in(s,ls)
-   for _, v in ipairs(ls) do
+   for i, v in ipairs(ls) do
       if v == s then
-         return true
+         return true, i
       end
    end
-   return false
+   return false, 0
 end
 
 local function exclude_cols(csv_data,ignore)
@@ -31,6 +32,7 @@ local function exclude_cols(csv_data,ignore)
          col_names[ncols] = k
       end
    end
+   table.sort(col_names)
    return col_names, ncols
 end
 
@@ -43,6 +45,12 @@ local function include_cols(csv_data,keep)
          col_names[ncols] = k
       end
    end
+   --include columns should be sorted based on order provided
+   table.sort(col_names, function(a,b) 
+                 _, a_i = _in(a,keep)
+                 _, b_i = _in(b,keep)
+                 return a_i < b_i
+             end)
    return col_names, ncols
 end
 
@@ -72,6 +80,7 @@ function csv2tensor.load (path,opts)
    local n_rows = #csv_data[col_names[1]]
    print("creating tensor")
    local tensor_data = torch.Tensor(n_rows,#col_names)
+   
    for i,col_name in ipairs(col_names) do
       next_col =  torch.Tensor(csv_data[col_name])
       tensor_data[{{},i}] = next_col
